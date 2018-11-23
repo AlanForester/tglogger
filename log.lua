@@ -20,9 +20,9 @@ function on_msg_receive (msg)
     if msg.date < now then
         return
     end
-    if msg.out then
-        return
-    end
+    ---if msg.out then
+    ---    return
+    ---end
     ---mark_read (msg.from.print_name)
     if msg.text then
         local f = io.open(home_dir..'inbox', 'a')
@@ -37,7 +37,7 @@ function on_msg_receive (msg)
 	      is_me = "true"
 	    end
 	    local client = redis.connect('127.0.0.1', 6379)
-	    local log = msg.from.peer_id..';'..msg.date..';'..is_me..';'..clr
+	    local log = msg.from.peer_id..';'..msg.to.peer_id..';'..msg.date..';'..is_me..';'..clr
 	    client:set('tglog:'..msg.from.id, log)
         f:write(log..'\n')
         f:flush()

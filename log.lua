@@ -38,7 +38,7 @@ function on_msg_receive (msg)
 	    end
 	    local client = redis.connect('127.0.0.1', 6379)
 	    local log = msg.from.peer_id..';'..msg.to.peer_id..';'..msg.date..';'..is_me..';'..clr
-	    client:set('tglog:'..msg.from.id, log)
+	    client:publish('tglog', log)
         f:write(log..'\n')
         f:flush()
         f:close()
